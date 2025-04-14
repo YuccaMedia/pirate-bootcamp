@@ -37,12 +37,13 @@ describe('[Running Unit Tests]: Swap Program', async () => {
     //
     // That's correct, the rest of the assets won't serve to upgrade your ship
     // in the battle. RIP.
-    enum AssetFilter {
-        Gold,
-        Cannon,
-        Rum,
-        OnlyBootcamp,
-    }
+    const AssetFilter = {
+        Gold: 0,
+        Cannon: 1,
+        Rum: 2,
+        OnlyBootcamp: 3
+    } as const;
+    
     const activeFilter = []
     const assets = assetsConfig.assets
         .filter((o) => {

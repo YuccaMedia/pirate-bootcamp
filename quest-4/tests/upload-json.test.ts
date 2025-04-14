@@ -1,8 +1,9 @@
-import { bundlrStorage, Metaplex, keypairIdentity, toMetaplexFile } from "@metaplex-foundation/js";
-import { Connection, Keypair } from "@solana/web3.js";
-import fs from 'fs';
-import os from 'os';
+import { Connection, Keypair, LAMPORTS_PER_SOL } from "@solana/web3.js";
+import * as fs from "fs";
+import * as path from "path";
 import { ASSETS } from "./util/const";
+import axios from "axios";
+import FormData from "form-data";
 
 /**
  * Script to upload images and JSON files to Arweave using Metaplex's JS
@@ -11,71 +12,109 @@ import { ASSETS } from "./util/const";
  * This should only need to be run once, and then you should
  * update the URI fields in the `ASSETS` array in `tests/util/const.ts`
  */
-describe('[Running Setup Script]: Upload Assets', () => {
-
-    const assets = [
-        ['Cannon', 'CAN', 'A cannon for defending yer ship!', './assets/cannon.png', 'cannon.png'],
-        ['Cannon Ball', 'CANB', 'Cannon balls for yer cannons!', './assets/cannon-ball.png', 'cannon-ball.png'],
-        ['Compass', 'COMP', 'A compass to navigate the seven seas!', './assets/compass.png', 'compass.png'],
-        ['Fishing Net', 'FISH', 'A fishing net for catching meals for the crew!', './assets/fishing-net.png', 'fishing-net.png'],
-        ['Gold', 'GOLD', 'Ahh the finest gold in all of these waters!', './assets/coin1-tp.png', 'coin1-tp.png'],
-        ['Grappling Hook', 'GRAP', 'A grappling hook for boarding other ships!', './assets/grappling-hook.png', 'grappling-hook.png'],
-        ['Gunpowder', 'GUNP', 'Gunpowder for ye muskets!', './assets/gunpowder.png', 'gunpowder.png'],
-        ['Musket', 'MUSK', 'A musket for firing on enemies!', './assets/musket.png', 'musket.png'],
-        ['Rum', 'RUM', 'Rum, more rum!', './assets/rum.png', 'rum.png'],
-        ['Telescope', 'TELE', 'A telescope for spotting booty amongst the seas!', './assets/telescope.png', 'telescope.png'],
-        ['Treasure Map', 'TMAP', 'A map to help ye find long lost treasures!', './assets/treasure-map-1.png', 'treasure-map-1.png'],
-    ]
-
-    // Util function to sleep
-    const sleepSeconds = async (s: number) =>
-        await new Promise((f) => setTimeout(f, s * 1000))
+describe("[Running Setup Script]: Upload Assets", () => {
+    // Initialize connection to devnet
+    const connection = new Connection("https://api.devnet.solana.com", {
+        commitment: 'confirmed',
+        confirmTransactionInitialTimeout: 180000,
+        wsEndpoint: "wss://api.devnet.solana.com/"
+    });
     
-    /**
-     * 
-     * Uploads an asset's image and JSON payload to Arweave
-     * 
-     * @param name The asset's name
-     * @param symbol The symbol for the asset's token
-     * @param description The description for the asset's token
-     * @param imagePath Path to image on local filesystem
-     * @param imageName Name to dub the image
-     */
+    const keypair = Keypair.fromSecretKey(
+        Buffer.from(JSON.parse(fs.readFileSync("/home/mindf/.config/solana/id.json", "utf-8")))
+    );
+
+    async function uploadToIPFS(file: Buffer, filename: string): Promise<string> {
+        const formData = new FormData();
+        formData.append('file', file, filename);
+        
+        const response = await axios.post('https://api.pinata.cloud/pinning/pinFileToIPFS', formData, {
+            headers: {
+                'Content-Type': `multipart/form-data; boundary=${formData.getBoundary()}`,
+                'pinata_api_key': process.env.PINATA_API_KEY || '',
+                'pinata_secret_api_key': process.env.PINATA_SECRET_API_KEY || ''
+            }
+        });
+        
+        return `https://gateway.pinata.cloud/ipfs/${response.data.IpfsHash}`;
+    }
+
     async function uploadMetadata(
+        imageName: string,
+        imageType: string,
         name: string,
         symbol: string,
         description: string,
-        imagePath: string,
-        imageName: string,
+        attributes: any[]
     ) {
-        const metaplex = Metaplex.make(
-            new Connection('https://api.devnet.solana.com/', 'confirmed')
-        )
-            .use(keypairIdentity(
-                Keypair.fromSecretKey(
-                    Buffer.from(JSON.parse(fs.readFileSync(
-                        os.homedir() + '/.config/solana/id.json', 
-                        "utf-8"
-                    )))
-                )
-            ))
-            .use(bundlrStorage({ address: `https://devnet.bundlr.network` }));
-        const { uri } = await metaplex.nfts().uploadMetadata({
-            name,
-            symbol,
-            description,
-            image: toMetaplexFile(fs.readFileSync(imagePath), imageName, { contentType: 'image' }),
-        });
-        console.log(`ASSET: ${name.padEnd(18, ' ')} URI: ${uri}`);
+        try {
+            console.log(`Uploading Image & JSON for: ${name}:`);
+            
+            // Check balance and airdrop if needed
+            const balance = await connection.getBalance(keypair.publicKey);
+            console.log(`Current balance: ${balance / LAMPORTS_PER_SOL} SOL`);
+            
+            if (balance < 2 * LAMPORTS_PER_SOL) {
+                console.log("Balance low, requesting airdrop...");
+                const signature = await connection.requestAirdrop(keypair.publicKey, 2 * LAMPORTS_PER_SOL);
+                await connection.confirmTransaction(signature, 'confirmed');
+                console.log("Airdrop confirmed");
+            }
+
+            // Read image file
+            const imageBuffer = fs.readFileSync(
+                path.resolve(__dirname, `../../assets/${imageName}.${imageType}`)
+            );
+            
+            try {
+                // Upload image to IPFS
+                console.log("Uploading image to IPFS...");
+                const imageUri = await uploadToIPFS(imageBuffer, `${imageName}.${imageType}`);
+                console.log("Image uploaded successfully:", imageUri);
+
+                // Create and upload metadata
+                const metadata = {
+                    name: name,
+                    symbol: symbol,
+                    description: description,
+                    image: imageUri,
+                    attributes: attributes
+                };
+
+                // Upload metadata to IPFS
+                console.log("Uploading metadata to IPFS...");
+                const metadataUri = await uploadToIPFS(
+                    Buffer.from(JSON.stringify(metadata)),
+                    "metadata.json"
+                );
+                console.log("Metadata uploaded successfully");
+                console.log("URI:", metadataUri);
+
+                return metadataUri;
+            } catch (uploadError) {
+                console.error("Upload error details:", uploadError);
+                throw uploadError;
+            }
+        } catch (error) {
+            if (error instanceof Error) {
+                console.error("Error uploading metadata:", error.message);
+            } else {
+                console.error("Unknown error occurred during upload");
+            }
+            throw error;
+        }
     }
 
-    /**
-     * Upload the image & JSON for each listed asset
-     */
-    for (const a of assets) {
-        it(`Uploading Image & JSON for: ${a[0]}`, async () => {
-            await uploadMetadata(a[0], a[1], a[2], a[3], a[4])
-            sleepSeconds(3)
-        })
-    }
-})
+    it("Uploading Image & JSON for: Treasure Map", async () => {
+        await uploadMetadata(
+            "treasure-map-1",
+            "png",
+            "Treasure Map",
+            "MAP",
+            "A mysterious map leading to untold treasures in the pirate world.",
+            []
+        );
+    });
+
+    // Add more test cases for other assets here
+});

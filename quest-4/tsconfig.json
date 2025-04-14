@@ -4,9 +4,17 @@
     "typeRoots": ["./node_modules/@types"],
     "lib": ["es2015"],
     "module": "commonjs",
-    "target": "es2016",
+    "target": "es2020",
+    "moduleResolution": "node",
     "esModuleInterop": true,
-    "resolveJsonModule": true
-  }
+    "resolveJsonModule": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "preserveConstEnums": true,
+    "allowJs": true
+  },
+  "include": ["tests/**/*", "tests/**/*.json"],
+  "exclude": ["node_modules"]
 }
           

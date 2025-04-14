@@ -1,19 +1,19 @@
+[toolchain]
+anchor_version = "0.28.0"
+
 [features]
-seeds = true
+seeds = false
 skip-lint = false
 
 [programs.localnet]
-swap_program = "FVCG6YkMbACgskY3ZrwqWFr45ERgJuKrf7C9dRDh6LjX"
+swap_program = "8VppkDTytWadXok7JAPVeipZnCMtf4HqwXMHkw41oLJu"
 
 [registry]
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "localnet"
-wallet = "/Users/joesol/.config/solana/id.json"
+cluster = "Localnet"
+wallet = "/home/mindf/.config/solana/id.json"
 
 [scripts]
-upload-json = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/upload-json.test.ts"
-create-assets = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/create-assets.test.ts"
-test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/main.test.ts"
-master = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/master.test.ts"
+test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"

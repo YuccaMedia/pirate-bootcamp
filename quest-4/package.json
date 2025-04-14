@@ -1,14 +1,22 @@
 {
+    "name": "quest-4",
+    "version": "1.0.0",
+    "license": "MIT",
+    "type": "module",
     "scripts": {
         "lint:fix": "prettier */*.js \"*/**/*{.js,.ts}\" -w",
-        "lint": "prettier */*.js \"*/**/*{.js,.ts}\" --check"
+        "lint": "prettier */*.js \"*/**/*{.js,.ts}\" --check",
+        "test": "ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"
     },
     "dependencies": {
-        "@coral-xyz/anchor": "^0.27.0",
-        "@metaplex-foundation/js": "^0.19.3",
-        "@metaplex-foundation/mpl-token-metadata": "^2.11.1",
-        "@solana/spl-token": "^0.3.7",
-        "@solana/web3.js": "^1.75.0"
+        "@coral-xyz/anchor": "0.28.0",
+        "@metaplex-foundation/js": "^0.19.4",
+        "@metaplex-foundation/mpl-token-metadata": "^2.13.0",
+        "@solana/spl-token": "^0.3.8",
+        "@solana/web3.js": "^1.87.6",
+        "@types/form-data": "^2.2.1",
+        "axios": "^1.8.4",
+        "form-data": "^4.0.2"
     },
     "devDependencies": {
         "@types/bn.js": "^5.1.0",
