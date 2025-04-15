@@ -130,3 +130,6 @@ API documentation is available at `/api/docs` when the server is running. Access
 ## License
 
 [MIT](LICENSE)
+
+## Code Quality
+[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/summary/new_code?id=YuccaMedia_Solana_Pirate_Adventure)
