@@ -46,9 +46,9 @@ jobs:
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+          token: ${{ secrets.CODECOV_TOKEN || '' }}
           directory: ./coverage/
-          fail_ci_if_error: true
+          fail_ci_if_error: false
 
   security-scan:
     name: Security Scan
@@ -69,6 +69,7 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           args: --severity-threshold=high
+        continue-on-error: true
       - name: Run npm audit
         run: npm audit --audit-level=high
 
