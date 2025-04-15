@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import * as jwt from 'jsonwebtoken';
 import { z } from 'zod';
 import { SecurityLogger } from '../services/security-logger.service';
+import { AppError } from '../utils/error.utils';
 
 // JWT configuration
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
@@ -277,4 +278,22 @@ declare global {
             };
         }
     }
-} 
+}
+
+export const authMiddleware = (allowedRoles: string[]) => {
+    return (req: Request, res: Response, next: NextFunction) => {
+        // In a real application, you would verify the JWT token here
+        // and check if the user's role is in the allowedRoles array
+        const userRole = req.headers['x-user-role'] as string;
+        
+        if (!userRole) {
+            throw new AppError('Unauthorized: No role provided', 401);
+        }
+
+        if (!allowedRoles.includes(userRole)) {
+            throw new AppError('Forbidden: Insufficient permissions', 403);
+        }
+
+        next();
+    };
+}; 

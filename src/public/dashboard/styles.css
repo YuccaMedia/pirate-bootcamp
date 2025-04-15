@@ -1,0 +1,315 @@
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2c3e50;
+    --success-color: #2ecc71;
+    --warning-color: #f39c12;
+    --danger-color: #e74c3c;
+    --info-color: #3498db;
+    --light-color: #ecf0f1;
+    --dark-color: #2c3e50;
+}
+
+body {
+    background-color: #f8f9fa;
+    color: #333;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.card-security {
+    border: none;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    margin-bottom: 1rem;
+}
+
+.card-security .card-header {
+    border-bottom: none;
+    font-weight: 500;
+}
+
+/* Security Score */
+.security-score-container {
+    display: flex;
+    justify-content: center;
+    padding: 1rem 0;
+}
+
+.security-score {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: conic-gradient(#198754 0% 85%, #dc3545 85% 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.security-score::before {
+    content: '';
+    position: absolute;
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    background-color: white;
+}
+
+.score-value {
+    position: relative;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #198754;
+}
+
+.score-label {
+    position: absolute;
+    bottom: 25px;
+    font-size: 0.8rem;
+    color: #6c757d;
+}
+
+.alert-summary {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.alert-count {
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    margin-bottom: 0.25rem;
+}
+
+.alert-count.critical {
+    background-color: #f8d7da;
+    color: #842029;
+}
+
+.alert-count.high {
+    background-color: #ffecb5;
+    color: #664d03;
+}
+
+.alert-count.medium {
+    background-color: #fff3cd;
+    color: #664d03;
+}
+
+.alert-count.low {
+    background-color: #d1e7dd;
+    color: #0f5132;
+}
+
+.alert-label {
+    font-size: 0.8rem;
+    color: #6c757d;
+}
+
+/* Status Cards */
+.status-card {
+    background-color: #f8f9fa;
+    border-radius: 0.25rem;
+    padding: 1rem;
+    text-align: center;
+    height: 100%;
+}
+
+.status-title {
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: #6c757d;
+}
+
+.status-indicator {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    margin: 0 auto 0.5rem;
+}
+
+.status-indicator.active {
+    background-color: #198754;
+    box-shadow: 0 0 10px #198754;
+}
+
+.status-indicator.warning {
+    background-color: #ffc107;
+    box-shadow: 0 0 10px #ffc107;
+}
+
+.status-indicator.danger {
+    background-color: #dc3545;
+    box-shadow: 0 0 10px #dc3545;
+}
+
+.status-detail {
+    font-size: 0.8rem;
+    color: #6c757d;
+}
+
+/* Compliance Cards */
+.compliance-card {
+    background-color: #f8f9fa;
+    border-radius: 0.25rem;
+    padding: 1rem;
+}
+
+.compliance-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.compliance-title {
+    font-weight: 500;
+}
+
+.compliance-status {
+    font-weight: 500;
+}
+
+.compliance-status.passed {
+    color: #198754;
+}
+
+.compliance-status.warning {
+    color: #ffc107;
+}
+
+.compliance-status.failed {
+    color: #dc3545;
+}
+
+.compliance-detail {
+    font-size: 0.8rem;
+    color: #6c757d;
+    margin-top: 0.5rem;
+}
+
+/* Adjust bootstrap components */
+.table {
+    margin-bottom: 0;
+}
+
+.table th {
+    font-weight: 500;
+}
+
+.severity-badge {
+    display: inline-block;
+    width: 70px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.severity-badge.critical {
+    background-color: #f8d7da;
+    color: #842029;
+}
+
+.severity-badge.high {
+    background-color: #ffecb5;
+    color: #664d03;
+}
+
+.severity-badge.medium {
+    background-color: #fff3cd;
+    color: #664d03;
+}
+
+.severity-badge.low {
+    background-color: #d1e7dd;
+    color: #0f5132;
+}
+
+/* IPFS Metrics Styling - NEW STYLES */
+.metric-card {
+    background-color: #f8f9fa;
+    border-radius: 0.25rem;
+    padding: 0.75rem;
+    text-align: center;
+    height: 100%;
+}
+
+.metric-title {
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+    color: #6c757d;
+}
+
+.metric-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+}
+
+.metric-subtitle {
+    font-size: 0.7rem;
+    color: #6c757d;
+}
+
+.security-recommendations h6 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #495057;
+}
+
+.security-recommendations .list-group-item {
+    background-color: transparent;
+    border-left: none;
+    border-right: none;
+    font-size: 0.85rem;
+}
+
+#ipfs-activity-chart {
+    margin-top: 0.5rem;
+}
+
+#recent-uploads-table td {
+    font-size: 0.85rem;
+    vertical-align: middle;
+}
+
+#recent-uploads-table th {
+    font-size: 0.85rem;
+}
+
+.ipfs-hash {
+    font-family: monospace;
+    font-size: 0.8rem;
+    color: #0d6efd;
+}
+
+/* IPFS Audit Modal */
+#ipfs-audit-modal .bi-check-circle,
+#ipfs-audit-modal .bi-exclamation-triangle {
+    margin-right: 0.5rem;
+}
+
+#ipfs-audit-modal .list-group-item {
+    font-size: 0.9rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .status-card, .compliance-card {
+        margin-bottom: 15px;
+    }
+    
+    .security-score {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .security-score::before {
+        width: 90px;
+        height: 90px;
+    }
+    
+    .score-value {
+        font-size: 2rem;
+    }
+} 

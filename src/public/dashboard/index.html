@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Dashboard - Solana Bootcamp Pirate Adventure</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <span class="text-warning fw-bold">Yucca Media</span> Security Dashboard
+                </a>
+                <div class="d-flex">
+                    <span class="navbar-text me-3" id="last-updated">Last updated: --</span>
+                    <button class="btn btn-outline-light btn-sm" id="refresh-btn">
+                        <i class="bi bi-arrow-clockwise"></i> Refresh
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <div class="row mt-3">
+            <div class="col-md-3">
+                <div class="card card-security h-100">
+                    <div class="card-header bg-dark text-white">
+                        <h5 class="card-title mb-0">Risk Overview</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="security-score-container">
+                            <div class="security-score" id="security-score">
+                                <div class="score-value" id="security-score-value">100</div>
+                                <div class="score-label">Security Score</div>
+                            </div>
+                        </div>
+                        <div class="alert-summary mt-3">
+                            <div class="alert-count-item">
+                                <div class="alert-count critical" id="critical-count">0</div>
+                                <div class="alert-label">Critical</div>
+                            </div>
+                            <div class="alert-count-item">
+                                <div class="alert-count high" id="high-count">0</div>
+                                <div class="alert-label">High</div>
+                            </div>
+                            <div class="alert-count-item">
+                                <div class="alert-count medium" id="medium-count">0</div>
+                                <div class="alert-label">Medium</div>
+                            </div>
+                            <div class="alert-count-item">
+                                <div class="alert-count low" id="low-count">0</div>
+                                <div class="alert-label">Low</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-9">
+                <div class="card card-security h-100">
+                    <div class="card-header bg-dark text-white">
+                        <h5 class="card-title mb-0">System Security Status</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3 mb-3">
+                                <div class="status-card">
+                                    <div class="status-title">Firewall</div>
+                                    <div class="status-indicator active" id="firewall-status"></div>
+                                    <div class="status-detail" id="firewall-detail">Active (24 rules)</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="status-card">
+                                    <div class="status-title">DDoS Protection</div>
+                                    <div class="status-indicator active" id="ddos-status"></div>
+                                    <div class="status-detail" id="ddos-detail">Active</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="status-card">
+                                    <div class="status-title">Intrusion Detection</div>
+                                    <div class="status-indicator active" id="ids-status"></div>
+                                    <div class="status-detail" id="ids-detail">Normal (2 alerts)</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="status-card">
+                                    <div class="status-title">Data Encryption</div>
+                                    <div class="status-indicator active" id="encryption-status"></div>
+                                    <div class="status-detail" id="encryption-detail">AES-256-GCM</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-md-4">
+                <div class="card card-security">
+                    <div class="card-header bg-dark text-white">
+                        <h5 class="card-title mb-0">IPFS Storage Security</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <div class="metric-card">
+                                    <div class="metric-title">Pinned Content</div>
+                                    <div class="metric-value" id="ipfs-total-pinned">0</div>
+                                    <div class="metric-subtitle">Total Items</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="metric-card">
+                                    <div class="metric-title">Storage Used</div>
+                                    <div class="metric-value" id="ipfs-total-size">0 MB</div>
+                                    <div class="metric-subtitle">Total Size</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="metric-card">
+                                    <div class="metric-title">Upload Health</div>
+                                    <div class="metric-value text-success" id="ipfs-success-rate">96.8%</div>
+                                    <div class="metric-subtitle">Success Rate</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="security-recommendations mt-3">
+                            <h6 class="mb-2">Security Recommendations</h6>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item d-flex justify-content-between align-items-center p-2">
+                                    <span>Enable IPFS content encryption</span>
+                                    <span class="badge bg-success">Implemented</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center p-2">
+                                    <span>Set access control for pins</span>
+                                    <span class="badge bg-success">Implemented</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center p-2">
+                                    <span>Periodic content validation</span>
+                                    <span class="badge bg-success">Implemented</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card card-security">
+                    <div class="card-header bg-dark text-white">
+                        <h5 class="card-title mb-0">IPFS Activity Monitoring</h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="ipfs-activity-chart" height="200"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-md-12">
+                <div class="card card-security">
+                    <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                        <h5 class="card-title mb-0">Recent IPFS Uploads</h5>
+                        <button class="btn btn-sm btn-outline-light" id="audit-ipfs-btn">
+                            <i class="bi bi-shield-check"></i> Audit Content
+                        </button>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0" id="recent-uploads-table">
+                                <thead class="table-secondary">
+                                    <tr>
+                                        <th>IPFS Hash</th>
+                                        <th>Name</th>
+                                        <th>Size</th>
+                                        <th>Timestamp</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Recent uploads will be populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a href="#" class="text-primary">View All Pinned Content</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-md-8">
+                <div class="card card-security">
+                    <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                        <h5 class="card-title mb-0">Security Events Trend</h5>
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-sm btn-outline-light active time-selector" data-time="day">Day</button>
+                            <button type="button" class="btn btn-sm btn-outline-light time-selector" data-time="week">Week</button>
+                            <button type="button" class="btn btn-sm btn-outline-light time-selector" data-time="month">Month</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="events-chart" height="250"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-security">
+                    <div class="card-header bg-dark text-white">
+                        <h5 class="card-title mb-0">Event Distribution</h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="events-distribution-chart" height="250"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <div class="card card-security">
+                    <div class="card-header bg-dark text-white">
+                        <h5 class="card-title mb-0">Recent Security Incidents</h5>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0" id="incidents-table">
+                                <thead class="table-secondary">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Type</th>
+                                        <th>Severity</th>
+                                        <th>Status</th>
+                                        <th>Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Incidents will be populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a href="#" class="text-primary">View All Incidents</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card card-security">
+                    <div class="card-header bg-dark text-white">
+                        <h5 class="card-title mb-0">Blocked IP Addresses</h5>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0" id="blocked-ips-table">
+                                <thead class="table-secondary">
+                                    <tr>
+                                        <th>IP Address</th>
+                                        <th>Reason</th>
+                                        <th>Blocked On</th>
+                                        <th>Expires</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Blocked IPs will be populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card-footer text-end">
+                        <button class="btn btn-sm btn-outline-primary" id="add-block-btn">Block New IP</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-md-12">
+                <div class="card card-security">
+                    <div class="card-header bg-dark text-white">
+                        <h5 class="card-title mb-0">Compliance Status</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3 mb-3">
+                                <div class="compliance-card">
+                                    <div class="compliance-header">
+                                        <span class="compliance-title">GDPR</span>
+                                        <span class="compliance-status passed">100%</span>
+                                    </div>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <div class="compliance-detail">All requirements met</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="compliance-card">
+                                    <div class="compliance-header">
+                                        <span class="compliance-title">PCI DSS</span>
+                                        <span class="compliance-status passed">100%</span>
+                                    </div>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <div class="compliance-detail">All requirements met</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="compliance-card">
+                                    <div class="compliance-header">
+                                        <span class="compliance-title">ISO 27001</span>
+                                        <span class="compliance-status passed">100%</span>
+                                    </div>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <div class="compliance-detail">All requirements met</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="compliance-card">
+                                    <div class="compliance-header">
+                                        <span class="compliance-title">SOC 2</span>
+                                        <span class="compliance-status passed">100%</span>
+                                    </div>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <div class="compliance-detail">All requirements met</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal fade" id="block-ip-modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title">Block IP Address</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="block-ip-form">
+                        <div class="mb-3">
+                            <label for="ip-address" class="form-label">IP Address</label>
+                            <input type="text" class="form-control" id="ip-address" required pattern="^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$">
+                            <div class="form-text">Enter a valid IPv4 address</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="block-reason" class="form-label">Reason</label>
+                            <input type="text" class="form-control" id="block-reason" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Block Duration</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="block-duration" id="duration-temp" value="temp" checked>
+                                <label class="form-check-label" for="duration-temp">
+                                    Temporary (24 hours)
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="block-duration" id="duration-perm" value="perm">
+                                <label class="form-check-label" for="duration-perm">
+                                    Permanent
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" id="submit-block">Block IP</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="incident-detail-modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title" id="incident-title">Incident Details</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="incident-details">
+                    <!-- Incident details will be populated by JavaScript -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- IPFS Content Audit Modal - NEW MODAL -->
+    <div class="modal fade" id="ipfs-audit-modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title">IPFS Content Security Audit</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-success">
+                        <i class="bi bi-check-circle"></i> Security scan completed successfully. All content is secure.
+                    </div>
+                    
+                    <div class="progress mb-4">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    
+                    <h6>Results:</h6>
+                    <ul class="list-group mb-3">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span><i class="bi bi-check-circle text-success"></i> No malware detected in content</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span><i class="bi bi-check-circle text-success"></i> Content signatures validated</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span><i class="bi bi-check-circle text-success"></i> All pins have proper access control</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span><i class="bi bi-check-circle text-success"></i> All sensitive data is encrypted</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="generate-report-btn">Generate Report</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html> 
