@@ -4,39 +4,25 @@ import { AppError, ErrorResponse, ErrorType } from '../types/error.types';
 import { env } from '../config/env.config';
 
 export const errorHandler = (
-    err: Error,
+    err: Error | AppError,
     req: Request,
     res: Response,
     next: NextFunction
-) => {
-    let statusCode = 500;
-    let errorResponse: ErrorResponse = {
-        status: 'error',
-        message: 'Internal Server Error'
-    };
-
-    // Handle known error types
+): void => {
     if (err instanceof AppError) {
-        statusCode = err.statusCode;
-        errorResponse = {
-            status: statusCode >= 500 ? 'error' : 'fail',
-            message: err.message
-        };
-    } else if (err instanceof ZodError) {
-        statusCode = 400;
-        errorResponse = {
-            status: 'fail',
-            message: 'Validation Error',
-            details: err.errors
-        };
+        res.status(err.statusCode).json({
+            status: err.statusCode < 500 ? 'fail' : 'error',
+            message: err.message,
+        });
+        return;
     }
 
-    // Add stack trace in development
-    if (env.NODE_ENV === 'development') {
-        errorResponse.stack = err.stack;
-    }
-
-    res.status(statusCode).json(errorResponse);
+    // Handle unknown errors
+    console.error('ERROR 💥', err);
+    res.status(500).json({
+        status: 'error',
+        message: 'Something went wrong',
+    });
 };
 
 export const notFoundHandler = (

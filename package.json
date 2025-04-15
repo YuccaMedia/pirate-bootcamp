@@ -1,4 +1,8 @@
 {
+  "name": "ipfs-pinning-service",
+  "version": "1.0.0",
+  "description": "Security-focused IPFS pinning service",
+  "main": "dist/app.js",
   "scripts": {
     "start": "ts-node src/app.ts",
     "build": "tsc",
@@ -8,11 +12,24 @@
     "test:coverage": "jest --coverage",
     "test:unit": "jest \"src/tests/(?!integration).*\\.test\\.ts$\"",
     "test:integration": "jest \"src/tests/integration/.*\\.test\\.ts$\" --runInBand",
+    "test:security": "jest \"src/tests/security/.*\\.test\\.ts$\" --runInBand",
     "test:all": "jest --runInBand",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
     "security:scan": "snyk test && npm audit",
     "security:monitor": "ts-node src/scripts/security-monitor.ts",
     "docker:scan": "trivy image app:latest",
-    "test:security": "jest --testMatch='**/*.security.test.ts'"
+    "sonar": "sonar-scanner",
+    "ci:test": "npm run lint && npm run test:all && npm run security:scan",
+    "ci:coverage": "jest --coverage --coverageReporters=lcov",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint --fix",
+      "prettier --write",
+      "jest --findRelatedTests"
+    ]
   },
   "dependencies": {
     "@pinata/sdk": "^2.1.0",
@@ -58,10 +75,18 @@
     "@types/sqlstring": "^2.3.2",
     "@types/supertest": "^6.0.2",
     "@types/uuid": "^10.0.0",
+    "husky": "^9.0.11",
     "jest": "^29.7.0",
+    "lint-staged": "^15.2.0",
+    "prettier": "^3.2.5",
     "supertest": "^6.3.4",
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
-  }
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "author": "",
+  "license": "MIT"
 }

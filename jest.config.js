@@ -2,24 +2,31 @@
 module.exports = {
     preset: 'ts-jest',
     testEnvironment: 'node',
-    roots: ['<rootDir>/src'],
-    testMatch: ['**/__tests__/**/*.ts', '**/?(*.)+(spec|test).ts'],
+    roots: ['<rootDir>/src/', '<rootDir>/tests/'],
+    testMatch: ['**/__tests__/**/*.ts?(x)', '**/?(*.)+(spec|test).ts?(x)'],
     transform: {
-        '^.+\\.ts$': ['ts-jest', {
-            tsconfig: 'tsconfig.json'
-        }]
+        '^.+\\.tsx?$': 'ts-jest',
     },
-    moduleFileExtensions: ['ts', 'js', 'json', 'node'],
-    setupFiles: ['<rootDir>/src/tests/setup.ts'],
-    testPathIgnorePatterns: [
-        '/node_modules/',
-        '/quest-1/',
-        '/quest-2/',
-        '/quest-3/',
-        '/quest-4/',
-        '/quest-5/',
-        '/quest-6/',
-        '/quest-7/',
-        '/faucet/'
-    ]
+    collectCoverage: true,
+    collectCoverageFrom: [
+        'src/**/*.{ts,tsx}',
+        '!src/**/*.d.ts',
+        '!src/types/**',
+        '!src/public/**',
+    ],
+    coverageThreshold: {
+        global: {
+            branches: 80,
+            functions: 80,
+            lines: 80,
+            statements: 80,
+        },
+    },
+    coverageReporters: ['text', 'lcov', 'clover'],
+    reporters: ['default', 'jest-junit'],
+    testPathIgnorePatterns: ['/node_modules/', '/dist/'],
+    moduleNameMapper: {
+        '^@/(.*)$': '<rootDir>/src/$1',
+    },
+    setupFilesAfterEnv: ['<rootDir>/tests/setup.ts'],
 }; 
