@@ -5,6 +5,7 @@ import { Logger } from '../utils/logger.utils';
 import { loadSecurityConfig } from '../config/security.config';
 import { authenticateAPIKey, requireAuthLevel, AuthLevel } from '../middleware/auth.middleware';
 import { SecurityLogger } from '../services/security-logger.service';
+import { SecurityValidationService } from '../services/security-validation.service';
 
 // Interface for pin list row to fix TypeScript errors
 interface PinListRow {
@@ -27,6 +28,10 @@ const logger = new Logger('SecurityDashboardRoutes');
 const pinataService = new PinataService();
 const securityConfig = loadSecurityConfig();
 const securityLogger = new SecurityLogger();
+const securityValidator = new SecurityValidationService();
+
+// Start periodic validation when routes are initialized
+securityValidator.startPeriodicValidation();
 
 // Enable authentication for all dashboard routes
 router.use(authenticateAPIKey);
@@ -343,6 +348,101 @@ router.get('/api/security-config', requireAuthLevel(AuthLevel.ADMIN), (req: Requ
     success: true,
     data: sanitizedConfig
   });
+});
+
+// Route to get validation status
+router.get('/api/validation-status', requireAuthLevel(AuthLevel.ADMIN), async (req: Request, res: Response) => {
+  try {
+    logger.info('Fetching validation status');
+    
+    // Log the access
+    const clientIp = req.ip || req.socket.remoteAddress || 'unknown';
+    const userId = (req.user?.id || req.authLevel || 'unknown') as string;
+    await securityLogger.logAccessEvent(
+      userId,
+      '/api/validation-status',
+      'read',
+      'success',
+      clientIp,
+      { user: userId }
+    );
+    
+    // Get the latest validation result
+    const validationResult = securityValidator.getLatestValidationResult();
+    
+    if (!validationResult) {
+      // If no validation has been run yet, trigger one
+      const result = await securityValidator.validateAllContent();
+      
+      res.json({
+        success: true,
+        data: {
+          status: result.valid ? 'valid' : 'invalid',
+          lastChecked: result.timestamp,
+          errors: result.errors,
+          warnings: result.warnings,
+          message: 'Initial validation completed'
+        }
+      });
+    } else {
+      // Return the latest validation result
+      res.json({
+        success: true,
+        data: {
+          status: validationResult.valid ? 'valid' : 'invalid',
+          lastChecked: validationResult.timestamp,
+          errors: validationResult.errors,
+          warnings: validationResult.warnings,
+          message: `Validation completed with ${validationResult.errors.length} errors and ${validationResult.warnings.length} warnings`
+        }
+      });
+    }
+  } catch (error) {
+    logger.error('Error fetching validation status', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch validation status'
+    });
+  }
+});
+
+// Route to trigger manual validation
+router.post('/api/run-validation', requireAuthLevel(AuthLevel.ADMIN), async (req: Request, res: Response) => {
+  try {
+    logger.info('Running manual content validation');
+    
+    // Log the action
+    const clientIp = req.ip || req.socket.remoteAddress || 'unknown';
+    const userId = (req.user?.id || req.authLevel || 'unknown') as string;
+    await securityLogger.logAccessEvent(
+      userId,
+      '/api/run-validation',
+      'execute',
+      'success',
+      clientIp,
+      { user: userId }
+    );
+    
+    // Run the validation
+    const result = await securityValidator.validateAllContent();
+    
+    res.json({
+      success: true,
+      data: {
+        status: result.valid ? 'valid' : 'invalid',
+        lastChecked: result.timestamp,
+        errors: result.errors,
+        warnings: result.warnings,
+        message: 'Manual validation completed'
+      }
+    });
+  } catch (error) {
+    logger.error('Error running content validation', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to run content validation'
+    });
+  }
 });
 
 export default router; 
