@@ -3,6 +3,8 @@ import path from 'path';
 import { PinataService } from '../services/pinata.service';
 import { Logger } from '../utils/logger.utils';
 import { loadSecurityConfig } from '../config/security.config';
+import { authenticateAPIKey, requireAuthLevel, AuthLevel } from '../middleware/auth.middleware';
+import { SecurityLogger } from '../services/security-logger.service';
 
 // Interface for pin list row to fix TypeScript errors
 interface PinListRow {
@@ -24,9 +26,10 @@ const router = express.Router();
 const logger = new Logger('SecurityDashboardRoutes');
 const pinataService = new PinataService();
 const securityConfig = loadSecurityConfig();
+const securityLogger = new SecurityLogger();
 
-// Skip authentication for the dashboard UI for now
-// router.use(authenticateAPIKey);
+// Enable authentication for all dashboard routes
+router.use(authenticateAPIKey);
 
 // Serve dashboard home page
 router.get('/', (req: Request, res: Response) => {
@@ -34,9 +37,21 @@ router.get('/', (req: Request, res: Response) => {
 });
 
 // Route to serve real IPFS metrics data from Pinata service
-router.get('/api/ipfs-metrics', async (req: Request, res: Response) => {
+router.get('/api/ipfs-metrics', requireAuthLevel(AuthLevel.USER), async (req: Request, res: Response) => {
   try {
     logger.info('Fetching IPFS metrics');
+    
+    // Log the access
+    const clientIp = req.ip || req.socket.remoteAddress || 'unknown';
+    const userId = (req.user?.id || req.authLevel || 'unknown') as string;
+    await securityLogger.logAccessEvent(
+      userId,
+      '/api/ipfs-metrics', 
+      'read', 
+      'success', 
+      clientIp, 
+      { user: userId }
+    );
     
     // Get real data from Pinata service
     const pinList: PinListResponse = await pinataService.getPinList();
@@ -102,9 +117,21 @@ router.get('/api/ipfs-metrics', async (req: Request, res: Response) => {
 });
 
 // Route to serve general dashboard metrics with a mix of real and mock data
-router.get('/api/metrics', async (req: Request, res: Response) => {
+router.get('/api/metrics', requireAuthLevel(AuthLevel.STAKEHOLDER), async (req: Request, res: Response) => {
   try {
     logger.info('Fetching security dashboard metrics');
+    
+    // Log the access
+    const clientIp = req.ip || req.socket.remoteAddress || 'unknown';
+    const userId = (req.user?.id || req.authLevel || 'unknown') as string;
+    await securityLogger.logAccessEvent(
+      userId,
+      '/api/metrics', 
+      'read', 
+      'success', 
+      clientIp, 
+      { user: userId }
+    );
     
     // Get real data from Pinata service for IPFS metrics
     const pinList: PinListResponse = await pinataService.getPinList();
@@ -180,7 +207,19 @@ router.get('/api/metrics', async (req: Request, res: Response) => {
 });
 
 // Route to serve mock incident data
-router.get('/api/incidents', (req: Request, res: Response) => {
+router.get('/api/incidents', requireAuthLevel(AuthLevel.STAKEHOLDER), (req: Request, res: Response) => {
+  // Log the access
+  const clientIp = req.ip || req.socket.remoteAddress || 'unknown';
+  const userId = (req.user?.id || req.authLevel || 'unknown') as string;
+  securityLogger.logAccessEvent(
+    userId,
+    '/api/incidents', 
+    'read', 
+    'success', 
+    clientIp, 
+    { user: userId }
+  ).catch(console.error);
+  
   // Return mock incidents data
   res.json({
     success: true,
@@ -216,7 +255,19 @@ router.get('/api/incidents', (req: Request, res: Response) => {
 });
 
 // Route to serve mock blocked IPs data
-router.get('/api/blocked-ips', (req: Request, res: Response) => {
+router.get('/api/blocked-ips', requireAuthLevel(AuthLevel.STAKEHOLDER), (req: Request, res: Response) => {
+  // Log the access
+  const clientIp = req.ip || req.socket.remoteAddress || 'unknown';
+  const userId = (req.user?.id || req.authLevel || 'unknown') as string;
+  securityLogger.logAccessEvent(
+    userId,
+    '/api/blocked-ips', 
+    'read', 
+    'success', 
+    clientIp, 
+    { user: userId }
+  ).catch(console.error);
+  
   // Return mock blocked IPs data
   res.json({
     success: true,
@@ -240,7 +291,19 @@ router.get('/api/blocked-ips', (req: Request, res: Response) => {
 });
 
 // API route to get environment security configuration (redacted sensitive values)
-router.get('/api/security-config', (req: Request, res: Response) => {
+router.get('/api/security-config', requireAuthLevel(AuthLevel.ADMIN), (req: Request, res: Response) => {
+  // Log the access
+  const clientIp = req.ip || req.socket.remoteAddress || 'unknown';
+  const userId = (req.user?.id || req.authLevel || 'unknown') as string;
+  securityLogger.logAccessEvent(
+    userId,
+    '/api/security-config', 
+    'read', 
+    'success', 
+    clientIp, 
+    { user: userId }
+  ).catch(console.error);
+  
   // Create a sanitized version of the config without sensitive info
   const sanitizedConfig = {
     environment: process.env.NODE_ENV || 'development',
