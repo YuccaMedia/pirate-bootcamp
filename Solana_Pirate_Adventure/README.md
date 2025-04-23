@@ -1,8 +1,14 @@
-# 🏴‍☠️ Solana Pirate Adventure
+# 🏴‍☠️ Solana Pirate Bootcamp (Customized by Tatiane Amnuar)
 
-<p width="full" margin="auto" align="center" style = "background:gray"><img src="https://raw.githubusercontent.com/solana-developers/pirate-bootcamp/main/assets/ship-fire-1.png" alt="ship" width="350" margin="auto" align="center" bg="white"/></p>
+This project is a modified version of the official Solana Developers Pirate Bootcamp.
+It is being developed by **Tatiane Amnuar** as part of her Web3 portfolio for the **Solana Grant** and 
+**Entertainment Community Fund**.
 
-Ahoy! Ready to embark on a pirate-themed coding adventure? Join our Solana programming bootcamp and discover the treasures of blockchain development. Learn to build smart contracts and DApps using our hands-on approach and practical coding exercises. Set sail with us and become a Solana pirate!
+## Purpose
+To demonstrate my technical capability and commitment to building on Solana by completing and deploying a working dApp.
+
+## Live Demo
+(Coming soon: deployment on Solana Devnet)
 
 ## Features
 - Interactive quests to learn Solana development
