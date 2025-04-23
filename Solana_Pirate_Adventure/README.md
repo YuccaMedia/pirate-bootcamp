@@ -50,12 +50,29 @@ This project incorporates several security best practices and features, aligning
     - Continuous integration with SonarCloud for static code analysis and vulnerability detection.
 
 ## Technologies Used
-- Solana Web3
+
+**Core Stack:**
+- Node.js
+- Express.js
+- TypeScript
+- PostgreSQL
+- Redis
+
+**Blockchain & IPFS:**
+- Solana (Web3.js)
 - Anchor Framework
 - Rust
-- JavaScript
-- GitHub CLI & WSL
-- VS Code
+- Pinata SDK
+
+**Key Libraries & Tools:**
+- Jest & Supertest (Testing)
+- Helmet, CORS, JWT, bcrypt (Security)
+- Zod (Validation)
+- Docker
+- SonarCloud
+- Prometheus & Grafana (Monitoring - via config)
+- Winston (Logging)
+- Git, GitHub CLI, WSL, VS Code
 
 ## Author
 Tatiane Amnuar
