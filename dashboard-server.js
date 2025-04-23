@@ -2,7 +2,8 @@ const express = require('express');
 const path = require('path');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+// Use port 3001 for the dashboard to avoid conflict with the main app
+const PORT = process.env.DASHBOARD_PORT || 3001;
 
 // Serve static files from the public directory
 app.use(express.static(path.join(__dirname, 'src/public')));
