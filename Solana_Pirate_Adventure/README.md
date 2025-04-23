@@ -17,6 +17,38 @@ Ahoy! Ready to embark on a pirate-themed coding adventure? Join our Solana progr
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=YuccaMedia_Solana_Pirate_Adventure&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=YuccaMedia_Solana_Pirate_Adventure)
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=YuccaMedia_Solana_Pirate_Adventure&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=YuccaMedia_Solana_Pirate_Adventure)
 
+## Security & Compliance
+
+This project incorporates several security best practices and features, aligning with OWASP Top 10 principles:
+
+- **Secure Authentication & Access Control:**
+    - API Key authentication with different access levels (Admin, Dev, Stakeholder).
+    - (Configurable) Multi-Factor Authentication (MFA) enforcement.
+    - Strong password policies (length, complexity, expiry, history).
+    - Secure session management (timeout, secure cookies, SameSite attribute).
+- **Data Protection & Encryption:**
+    - Enforces HTTPS for secure communication.
+    - Configurable TLS version (defaulting to 1.3) and allowed cipher suites.
+    - Database and backup encryption keys.
+    - (Configurable) GDPR and PCI compliance settings.
+    - Configurable data and backup retention policies.
+    - IPFS content encryption and access control recommendations implemented.
+- **Network Security:**
+    - Rate limiting to prevent brute-force and denial-of-service attacks.
+    - CORS protection with configurable allowed origins.
+    - (Configurable) DDoS protection layer.
+- **Input Validation & Sanitization:**
+    - Robust input validation is implemented throughout the application to prevent injection attacks.
+- **Monitoring & Logging:**
+    - Detailed security event logging.
+    - (Configurable) Log retention policies.
+    - Integration with Prometheus for monitoring.
+    - (Configurable) Email and Slack alerts for security events.
+- **Regular Validation:**
+    - Periodic content validation service to ensure integrity.
+- **Code Quality & Scanning:**
+    - Continuous integration with SonarCloud for static code analysis and vulnerability detection.
+
 ## Technologies Used
 - Solana Web3
 - Anchor Framework
