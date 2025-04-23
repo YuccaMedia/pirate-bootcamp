@@ -17,11 +17,18 @@ Ahoy! Ready to embark on a pirate-themed coding adventure? Join our Solana progr
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=YuccaMedia_Solana_Pirate_Adventure&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=YuccaMedia_Solana_Pirate_Adventure)
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=YuccaMedia_Solana_Pirate_Adventure&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=YuccaMedia_Solana_Pirate_Adventure)
 
-## Technologies
-- Solana Blockchain
-- Rust
-- TypeScript
-- React
+## Technologies Used
+- Solana Web3
 - Anchor Framework
+- Rust
+- JavaScript
+- GitHub CLI & WSL
+- VS Code
 
-Last updated: April 22, 2025 
+## Author
+Tatiane Amnuar
+Developer at YucaMedia
+[LinkedIn](https://www.linkedin.com/in/tatianeamnuar)  
+[GitHub Profile](https://github.com/YuccaMedia)
+
+Last updated: April 23, 2025 
