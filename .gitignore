@@ -61,3 +61,7 @@ temp/
 .solana
 target/
 test-ledger/
+
+# Environment variables
+.env.*
+!.env.example

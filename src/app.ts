@@ -1,14 +1,15 @@
+import dotenv from 'dotenv';
+import path from 'path';
+
+// Load environment variables from .env file in the project root
+dotenv.config();
+
 import express from 'express';
 import helmet from 'helmet';
 import { collectDefaultMetrics } from 'prom-client';
 import ipfsRouter from './routes/ipfs.routes';
 import securityDashboardRouter from './routes/security-dashboard.routes';
-import dotenv from 'dotenv';
-import path from 'path'; // Import path module
 import { checkDocAccess, requireDocAccess, DocAccessLevel, DocRequest } from './middleware/docs.middleware';
-
-// Load environment variables explicitly from root .env file
-dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 
 // Initialize Prometheus metrics
 collectDefaultMetrics();

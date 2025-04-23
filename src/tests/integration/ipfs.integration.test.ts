@@ -46,8 +46,10 @@ const isValidIPFSHash = (hash: string) => /^Qm[1-9A-HJ-NP-Za-km-z]{44}$/.test(ha
 
 // Only run these tests if PINATA_API_KEY is available
 const runIntegrationTests = process.env.PINATA_API_KEY && process.env.RUN_INTEGRATION_TESTS;
+// Choose describe or skip based on environment
+const integrationDescribe = runIntegrationTests ? describe : describe.skip;
 
-describe('Pinata Integration Tests', () => {
+integrationDescribe('Pinata Integration Tests', () => {
     let pinataService: PinataService;
     let testHashes: string[] = [];
 

@@ -1,8 +1,8 @@
 # 🏴‍☠️ Solana Pirate Bootcamp (Customized by Tatiane Amnuar)
 
 This project is a modified version of the official Solana Developers Pirate Bootcamp.
-It is being developed by **Tatiane Amnuar** as part of her Web3 portfolio for the **Solana Grant** and 
-**Entertainment Community Fund**.
+
+It is being developed by **Tatiane Amnuar** as part of her Web3 portfolio for the **Solana Grant** and **Entertainment Community Fund**.
 
 ## Purpose
 To demonstrate my technical capability and commitment to building on Solana by completing and deploying a working dApp.

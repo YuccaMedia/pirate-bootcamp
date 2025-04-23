@@ -129,6 +129,12 @@ export class EnvUtils {
      * Validate all security-related environment variables
      */
     static validateSecurityEnv(): void {
+        // Temporarily disable strict validation for development
+        if (process.env.NODE_ENV === 'development') {
+            console.log('⚠️ Running in development mode with relaxed security validation');
+            return;
+        }
+        
         const requiredSecurityVars: Array<keyof NodeJS.ProcessEnv> = [
             'DB_ENCRYPTION_KEY',
             'SESSION_SECRET',

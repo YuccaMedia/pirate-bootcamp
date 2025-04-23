@@ -1,7 +1,7 @@
 # 🌊 Quest 2 - Set Sail with Solana Programs
 
-📘 Solana programs scale really well with large data sets, since they can execute in parallel on varying slices of the blockchain’s data.
-That’s how one single program is able to manage our map of the high seas!
+📘 Solana programs scale really well with large data sets, since they can execute in parallel on varying slices of the blockchain's data.
+That's how one single program is able to manage our map of the high seas!
 
 You're going to learn how to write a program that can manage a player's position and how to save and distribute SOL and SPL tokens from within a program. We will also learn how to do a local setup for an Anchor program and a Next.js client.
 
@@ -16,3 +16,5 @@ Video recording: coming soon
 6. Build and deploy a project using local validator and devnet: https://github.com/solana-developers/solana-game-starter-kits/tree/main/tiny-adventure
 7. Learn how to sign transaction in the backend using nextJS api
 8. Small intro into the Unity SDK and how to use it with the tiny adventure program 
+
+WARNING: `anchor-lang` version(0.28.0) and the current CLI version(0.31.1) don't match.

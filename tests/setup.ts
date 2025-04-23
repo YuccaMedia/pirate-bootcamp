@@ -61,7 +61,7 @@ beforeEach(() => {
 });
 
 // Define global mocks here if needed
-global.mockPinataService = {
+(global as any).mockPinataService = {
   pinJSON: jest.fn(),
   pinFile: jest.fn(),
   getPinList: jest.fn(),
@@ -69,7 +69,7 @@ global.mockPinataService = {
 };
 
 // Setup console spy to capture logs during tests
-global.consoleSpy = {
+(global as any).consoleSpy = {
   log: jest.spyOn(console, 'log').mockImplementation(),
   error: jest.spyOn(console, 'error').mockImplementation(),
   warn: jest.spyOn(console, 'warn').mockImplementation(),

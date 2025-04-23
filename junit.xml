@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="59" failures="22" errors="0" time="169.232">
+  <testsuite name="IPFS Controller" errors="0" failures="18" skipped="0" timestamp="2025-04-23T07:43:17" time="165.094" tests="22">
+    <testcase classname="IPFS Controller POST /api/ipfs/json should pin JSON to IPFS successfully" name="IPFS Controller POST /api/ipfs/json should pin JSON to IPFS successfully" time="28.291">
+      <failure>Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 201
+Received: 500
+    at Object.&lt;anonymous&gt; (/home/mindf/solana-bootcamp-pirate-adventure/src/tests/ipfs.controller.test.ts:32:37)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)</failure>
+    </testcase>
+    <testcase classname="IPFS Controller POST /api/ipfs/json should handle complex JSON objects" name="IPFS Controller POST /api/ipfs/json should handle complex JSON objects" time="7.739">
+      <failure>Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 201
+Received: 500
+    at Object.&lt;anonymous&gt; (/home/mindf/solana-bootcamp-pirate-adventure/src/tests/ipfs.controller.test.ts:50:37)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)</failure>
+    </testcase>
+    <testcase classname="IPFS Controller POST /api/ipfs/json should return 400 for missing JSON data" name="IPFS Controller POST /api/ipfs/json should return 400 for missing JSON data" time="0.004">
+    </testcase>
+    <testcase classname="IPFS Controller POST /api/ipfs/json should validate metadata format" name="IPFS Controller POST /api/ipfs/json should validate metadata format" time="9.543">
+      <failure>Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 400
+Received: 500
+    at Object.&lt;anonymous&gt; (/home/mindf/solana-bootcamp-pirate-adventure/src/tests/ipfs.controller.test.ts:71:37)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)</failure>
+    </testcase>
+    <testcase classname="IPFS Controller POST /api/ipfs/json should handle empty objects" name="IPFS Controller POST /api/ipfs/json should handle empty objects" time="7.518">
+      <failure>Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 201
+Received: 500
+    at Object.&lt;anonymous&gt; (/home/mindf/solana-bootcamp-pirate-adventure/src/tests/ipfs.controller.test.ts:83:37)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)</failure>
+    </testcase>
+    <testcase classname="IPFS Controller POST /api/ipfs/json should handle very large JSON objects" name="IPFS Controller POST /api/ipfs/json should handle very large JSON objects" time="9.508">
+      <failure>Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 201
+Received: 500
+    at Object.&lt;anonymous&gt; (/home/mindf/solana-bootcamp-pirate-adventure/src/tests/ipfs.controller.test.ts:98:37)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)</failure>
+    </testcase>
+    <testcase classname="IPFS Controller POST /api/ipfs/json should reject invalid JSON structures" name="IPFS Controller POST /api/ipfs/json should reject invalid JSON structures" time="7.549">
+      <failure>Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 400
+Received: 500
+    at Object.&lt;anonymous&gt; (/home/mindf/solana-bootcamp-pirate-adventure/src/tests/ipfs.controller.test.ts:113:37)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)</failure>
+    </testcase>
+    <testcase classname="IPFS Controller POST /api/ipfs/file should pin file to IPFS successfully" name="IPFS Controller POST /api/ipfs/file should pin file to IPFS successfully" time="9.626">
+      <failure>Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 201
+Received: 500
+    at Object.&lt;anonymous&gt; (/home/mindf/solana-bootcamp-pirate-adventure/src/tests/ipfs.controller.test.ts:125:37)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)</failure>
+    </testcase>
+    <testcase classname="IPFS Controller POST /api/ipfs/file should handle large files" name="IPFS Controller POST /api/ipfs/file should handle large files" time="12.525">
+      <failure>Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 201
+Received: 500
+    at Object.&lt;anonymous&gt; (/home/mindf/solana-bootcamp-pirate-adventure/src/tests/ipfs.controller.test.ts:136:37)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)</failure>
+    </testcase>
+    <testcase classname="IPFS Controller POST /api/ipfs/file should return 400 for missing file" name="IPFS Controller POST /api/ipfs/file should return 400 for missing file" time="0.004">
+    </testcase>
+    <testcase classname="IPFS Controller POST /api/ipfs/file should handle invalid metadata format" name="IPFS Controller POST /api/ipfs/file should handle invalid metadata format" time="0.004">
+    </testcase>
+    <testcase classname="IPFS Controller POST /api/ipfs/file should handle empty files" name="IPFS Controller POST /api/ipfs/file should handle empty files" time="7.179">
+      <failure>Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 201
+Received: 500
+    at Object.&lt;anonymous&gt; (/home/mindf/solana-bootcamp-pirate-adventure/src/tests/ipfs.controller.test.ts:165:37)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)</failure>
+    </testcase>
+    <testcase classname="IPFS Controller POST /api/ipfs/file should handle files with special characters in name" name="IPFS Controller POST /api/ipfs/file should handle files with special characters in name" time="13.291">
+      <failure>Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 201
+Received: 500
+    at Object.&lt;anonymous&gt; (/home/mindf/solana-bootcamp-pirate-adventure/src/tests/ipfs.controller.test.ts:175:37)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)</failure>
+    </testcase>
+    <testcase classname="IPFS Controller POST /api/ipfs/file should reject unsupported file types" name="IPFS Controller POST /api/ipfs/file should reject unsupported file types" time="8.416">
+      <failure>Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 400
+Received: 500
+    at Object.&lt;anonymous&gt; (/home/mindf/solana-bootcamp-pirate-adventure/src/tests/ipfs.controller.test.ts:185:37)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)</failure>
+    </testcase>
+    <testcase classname="IPFS Controller GET /api/ipfs/pins should return pin list successfully" name="IPFS Controller GET /api/ipfs/pins should return pin list successfully" time="8.072">
+      <failure>Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 200
+Received: 500
+    at Object.&lt;anonymous&gt; (/home/mindf/solana-bootcamp-pirate-adventure/src/tests/ipfs.controller.test.ts:195:37)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)</failure>
+    </testcase>
+    <testcase classname="IPFS Controller GET /api/ipfs/pins should handle pagination parameters" name="IPFS Controller GET /api/ipfs/pins should handle pagination parameters" time="9.096">
+      <failure>Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 200
+Received: 500
+    at Object.&lt;anonymous&gt; (/home/mindf/solana-bootcamp-pirate-adventure/src/tests/ipfs.controller.test.ts:206:37)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)</failure>
+    </testcase>
+    <testcase classname="IPFS Controller GET /api/ipfs/pins should handle invalid pagination parameters" name="IPFS Controller GET /api/ipfs/pins should handle invalid pagination parameters" time="9.817">
+      <failure>Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 400
+Received: 500
+    at Object.&lt;anonymous&gt; (/home/mindf/solana-bootcamp-pirate-adventure/src/tests/ipfs.controller.test.ts:217:37)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)</failure>
+    </testcase>
+    <testcase classname="IPFS Controller DELETE /api/ipfs/unpin/:hash should unpin content successfully" name="IPFS Controller DELETE /api/ipfs/unpin/:hash should unpin content successfully" time="0.003">
+      <failure>Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 200
+Received: 500
+    at Object.&lt;anonymous&gt; (/home/mindf/solana-bootcamp-pirate-adventure/src/tests/ipfs.controller.test.ts:227:37)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)</failure>
+    </testcase>
+    <testcase classname="IPFS Controller DELETE /api/ipfs/unpin/:hash should return 404 for missing hash" name="IPFS Controller DELETE /api/ipfs/unpin/:hash should return 404 for missing hash" time="0.005">
+    </testcase>
+    <testcase classname="IPFS Controller DELETE /api/ipfs/unpin/:hash should handle invalid hash format" name="IPFS Controller DELETE /api/ipfs/unpin/:hash should handle invalid hash format" time="0.004">
+      <failure>Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 400
+Received: 500
+    at Object.&lt;anonymous&gt; (/home/mindf/solana-bootcamp-pirate-adventure/src/tests/ipfs.controller.test.ts:243:37)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)</failure>
+    </testcase>
+    <testcase classname="IPFS Controller DELETE /api/ipfs/unpin/:hash should handle non-existent hash" name="IPFS Controller DELETE /api/ipfs/unpin/:hash should handle non-existent hash" time="7.154">
+      <failure>Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 404
+Received: 500
+    at Object.&lt;anonymous&gt; (/home/mindf/solana-bootcamp-pirate-adventure/src/tests/ipfs.controller.test.ts:251:37)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)</failure>
+    </testcase>
+    <testcase classname="IPFS Controller DELETE /api/ipfs/unpin/:hash should reject hash with invalid length" name="IPFS Controller DELETE /api/ipfs/unpin/:hash should reject hash with invalid length" time="7.061">
+      <failure>Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 400
+Received: 500
+    at Object.&lt;anonymous&gt; (/home/mindf/solana-bootcamp-pirate-adventure/src/tests/ipfs.controller.test.ts:259:37)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)</failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Security Middleware" errors="0" failures="4" skipped="0" timestamp="2025-04-23T07:46:02" time="0.601" tests="9">
+    <testcase classname="Security Middleware Request Validation should validate valid JSON data" name="Security Middleware Request Validation should validate valid JSON data" time="0.017">
+    </testcase>
+    <testcase classname="Security Middleware Request Validation should reject invalid JSON data" name="Security Middleware Request Validation should reject invalid JSON data" time="0.005">
+      <failure>Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 400
+Received: 200
+    at Object.&lt;anonymous&gt; (/home/mindf/solana-bootcamp-pirate-adventure/src/tests/security.test.ts:52:37)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)</failure>
+    </testcase>
+    <testcase classname="Security Middleware Request Validation should validate IPFS hash format" name="Security Middleware Request Validation should validate IPFS hash format" time="0.004">
+    </testcase>
+    <testcase classname="Security Middleware Rate Limiting should allow requests within rate limit" name="Security Middleware Rate Limiting should allow requests within rate limit" time="0.006">
+    </testcase>
+    <testcase classname="Security Middleware Rate Limiting should block excessive requests" name="Security Middleware Rate Limiting should block excessive requests" time="0.306">
+    </testcase>
+    <testcase classname="Security Middleware CORS should allow requests from allowed origins" name="Security Middleware CORS should allow requests from allowed origins" time="0.012">
+      <failure>Error: expect(received).toBeDefined()
+
+Received: undefined
+    at Object.&lt;anonymous&gt; (/home/mindf/solana-bootcamp-pirate-adventure/src/tests/security.test.ts:95:69)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)</failure>
+    </testcase>
+    <testcase classname="Security Middleware CORS should handle preflight requests" name="Security Middleware CORS should handle preflight requests" time="0.003">
+    </testcase>
+    <testcase classname="Security Middleware File Upload Security should reject files exceeding size limit" name="Security Middleware File Upload Security should reject files exceeding size limit" time="0.015">
+      <failure>Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 400
+Received: 500
+    at Object.&lt;anonymous&gt; (/home/mindf/solana-bootcamp-pirate-adventure/src/tests/security.test.ts:134:37)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)</failure>
+    </testcase>
+    <testcase classname="Security Middleware File Upload Security should reject files with invalid types" name="Security Middleware File Upload Security should reject files with invalid types" time="0.006">
+      <failure>Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 400
+Received: 500
+    at Object.&lt;anonymous&gt; (/home/mindf/solana-bootcamp-pirate-adventure/src/tests/security.test.ts:142:37)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)</failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="ConfigValidator" errors="0" failures="0" skipped="0" timestamp="2025-04-23T07:46:03" time="0.089" tests="10">
+    <testcase classname="ConfigValidator loadConfig should load and validate the entire configuration" name="ConfigValidator loadConfig should load and validate the entire configuration" time="0.003">
+    </testcase>
+    <testcase classname="ConfigValidator loadDatabaseConfig should load database configuration" name="ConfigValidator loadDatabaseConfig should load database configuration" time="0.001">
+    </testcase>
+    <testcase classname="ConfigValidator loadMonitoringConfig should load monitoring configuration" name="ConfigValidator loadMonitoringConfig should load monitoring configuration" time="0.004">
+    </testcase>
+    <testcase classname="ConfigValidator loadMonitoringConfig should handle missing slack configuration" name="ConfigValidator loadMonitoringConfig should handle missing slack configuration" time="0.001">
+    </testcase>
+    <testcase classname="ConfigValidator loadMonitoringConfig should handle partial slack configuration" name="ConfigValidator loadMonitoringConfig should handle partial slack configuration" time="0.001">
+    </testcase>
+    <testcase classname="ConfigValidator loadIPFSConfig should load IPFS configuration" name="ConfigValidator loadIPFSConfig should load IPFS configuration" time="0.001">
+    </testcase>
+    <testcase classname="ConfigValidator loadSecurityConfig should load security configuration" name="ConfigValidator loadSecurityConfig should load security configuration" time="0.001">
+    </testcase>
+    <testcase classname="ConfigValidator loadAccessControlConfig should load access control configuration" name="ConfigValidator loadAccessControlConfig should load access control configuration" time="0.003">
+    </testcase>
+    <testcase classname="ConfigValidator loadNetworkSecurityConfig should load network security configuration with DDOS protection enabled" name="ConfigValidator loadNetworkSecurityConfig should load network security configuration with DDOS protection enabled" time="0.002">
+    </testcase>
+    <testcase classname="ConfigValidator loadNetworkSecurityConfig should handle disabled DDOS protection" name="ConfigValidator loadNetworkSecurityConfig should handle disabled DDOS protection" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="IPFS Utilities" errors="0" failures="0" skipped="0" timestamp="2025-04-23T07:46:03" time="0.049" tests="7">
+    <testcase classname="IPFS Utilities getIPFSGatewayURL should generate correct gateway URL with default gateway" name="IPFS Utilities getIPFSGatewayURL should generate correct gateway URL with default gateway" time="0.002">
+    </testcase>
+    <testcase classname="IPFS Utilities getIPFSGatewayURL should generate correct gateway URL with custom gateway" name="IPFS Utilities getIPFSGatewayURL should generate correct gateway URL with custom gateway" time="0">
+    </testcase>
+    <testcase classname="IPFS Utilities extractIPFSHash should extract hash from gateway URL" name="IPFS Utilities extractIPFSHash should extract hash from gateway URL" time="0">
+    </testcase>
+    <testcase classname="IPFS Utilities extractIPFSHash should return null for invalid URL" name="IPFS Utilities extractIPFSHash should return null for invalid URL" time="0.001">
+    </testcase>
+    <testcase classname="IPFS Utilities isValidIPFSHash should validate correct IPFS hash" name="IPFS Utilities isValidIPFSHash should validate correct IPFS hash" time="0">
+    </testcase>
+    <testcase classname="IPFS Utilities isValidIPFSHash should reject invalid IPFS hash" name="IPFS Utilities isValidIPFSHash should reject invalid IPFS hash" time="0.001">
+    </testcase>
+    <testcase classname="IPFS Utilities isValidIPFSHash should reject empty string" name="IPFS Utilities isValidIPFSHash should reject empty string" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="Pinata Integration Tests" errors="0" failures="0" skipped="11" timestamp="2025-04-23T07:46:03" time="0.075" tests="11">
+    <testcase classname="Pinata Integration Tests Connection Management should handle connection errors gracefully" name="Pinata Integration Tests Connection Management should handle connection errors gracefully" time="0">
+      <skipped/>
+    </testcase>
+    <testcase classname="Pinata Integration Tests Connection Management should handle rate limiting" name="Pinata Integration Tests Connection Management should handle rate limiting" time="0">
+      <skipped/>
+    </testcase>
+    <testcase classname="Pinata Integration Tests JSON Operations should pin simple JSON successfully" name="Pinata Integration Tests JSON Operations should pin simple JSON successfully" time="0">
+      <skipped/>
+    </testcase>
+    <testcase classname="Pinata Integration Tests JSON Operations should handle complex JSON with metadata" name="Pinata Integration Tests JSON Operations should handle complex JSON with metadata" time="0">
+      <skipped/>
+    </testcase>
+    <testcase classname="Pinata Integration Tests File Operations should handle small file upload" name="Pinata Integration Tests File Operations should handle small file upload" time="0">
+      <skipped/>
+    </testcase>
+    <testcase classname="Pinata Integration Tests File Operations should handle medium file upload" name="Pinata Integration Tests File Operations should handle medium file upload" time="0">
+      <skipped/>
+    </testcase>
+    <testcase classname="Pinata Integration Tests File Operations should handle image file upload" name="Pinata Integration Tests File Operations should handle image file upload" time="0">
+      <skipped/>
+    </testcase>
+    <testcase classname="Pinata Integration Tests Error Handling should handle invalid file data" name="Pinata Integration Tests Error Handling should handle invalid file data" time="0">
+      <skipped/>
+    </testcase>
+    <testcase classname="Pinata Integration Tests Error Handling should handle invalid JSON data" name="Pinata Integration Tests Error Handling should handle invalid JSON data" time="0">
+      <skipped/>
+    </testcase>
+    <testcase classname="Pinata Integration Tests Error Handling should handle network timeouts" name="Pinata Integration Tests Error Handling should handle network timeouts" time="0">
+      <skipped/>
+    </testcase>
+    <testcase classname="Pinata Integration Tests Performance should handle concurrent uploads" name="Pinata Integration Tests Performance should handle concurrent uploads" time="0">
+      <skipped/>
+    </testcase>
+  </testsuite>
+</testsuites>

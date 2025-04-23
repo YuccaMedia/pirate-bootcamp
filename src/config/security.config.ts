@@ -1,9 +1,7 @@
 import dotenv from 'dotenv';
-import { Logger } from '../utils/logger.utils';
+import { logger } from '../utils/logger.utils';
 
 dotenv.config();
-
-const logger = new Logger('SecurityConfig');
 
 export interface SecurityConfig {
     database: {

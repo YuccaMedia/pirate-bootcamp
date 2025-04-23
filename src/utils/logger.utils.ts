@@ -16,4 +16,7 @@ export class Logger {
     debug(message: string, meta?: any): void {
         console.debug(`[DEBUG] [${this.contextName}] ${message}`, meta ? meta : '');
     }
-} 
+}
+
+// Shared logger instance for application modules and tests
+export const logger = new Logger('App'); 
