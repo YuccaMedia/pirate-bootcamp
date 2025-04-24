@@ -11,8 +11,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Debug Info
+      run: |
+        echo "GitHub Actions is running!"
+        echo "Repository: ${{ github.repository }}"
+        echo "Branch: ${{ github.ref }}"
+        echo "Workflow file: ${{ github.workflow }}"
+        pwd
+        ls -la
+
     - name: Checkout repository
       uses: actions/checkout@v4
+
+    - name: List files after checkout
+      run: |
+        echo "Files in repository after checkout:"
+        ls -la
+        echo "Checking package.json exists:"
+        cat package.json | head -n 5
 
     - name: Set up Node.js 18
       uses: actions/setup-node@v4
